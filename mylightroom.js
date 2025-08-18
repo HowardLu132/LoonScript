@@ -1,12 +1,18 @@
+// 取出响应体
+var body = $response.body;
+
+// 删除前缀里的 "while(1);" 或 "while (1) {}" 等变体
 body = body.replace(/^while\s*\(1\)\s*[{;}\s]*/, "");
 
-let obj = JSON.parse(body);
+// 解析 JSON
+var obj = JSON.parse(body);
 
+// 修改订阅状态
 obj.entitlement.status = "subscriber";
 obj.current_subs = {
   "product_id": "lightroom",
   "store": "adobe",
-  "purchase_date": "2023-10-10T16:32:10.254954Z",
+  "purchase_date": "2019-10-10T16:32:10.254954Z",
   "sao": {
     "inpkg_CCES": "0",
     "inpkg_CCLE": "1",
@@ -33,5 +39,5 @@ obj.entitlement.storage = {
 };
 obj.avatar.placeholder = true;
 
-body = JSON.stringify(obj);
-$done({ body });
+// 转回字符串并返回
+$done({ body: JSON.stringify(obj) });
