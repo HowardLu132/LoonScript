@@ -1,8 +1,7 @@
-// 取出响应体
 var body = $response.body;
 
-// 删除前缀里的 "while(1);" 或 "while (1) {}" 等变体
-body = body.replace(/^while\s*\(1\)\s*[{;}\s]*/, "");
+// 删除前缀 "while(1);" 或 "while (1) {}"
+body = body.replace(/^while\s*\(1\)\s*[{;}]*\s*/, "");
 
 // 解析 JSON
 var obj = JSON.parse(body);
@@ -39,5 +38,5 @@ obj.entitlement.storage = {
 };
 obj.avatar.placeholder = true;
 
-// 转回字符串并返回
+// 返回
 $done({ body: JSON.stringify(obj) });
