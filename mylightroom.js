@@ -13,7 +13,7 @@ try {
   obj.entitlement.current_subs = {
     "product_id": "lightroom",
     "store": "adobe",
-    "purchase_date": "2019-10-10T16:32:10.254954Z", // 固定一个时间
+    "purchase_date": "2023-10-10T16:32:10.254954Z", // 固定一个时间
     "sao": {
       "inpkg_LRMC": "1"  // Lightroom Mobile/CC 核心订阅包
     }
