@@ -1,39 +1,39 @@
-var rawBody = $response.body;
+body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
+let obj = JSON.parse(body);
 
-// 删除前缀 "while(1);" 或 "while (1) {}"
-var body = rawBody.replace(/^while\s*\(1\)\s*[{;}]*\s*/, "");
+obj.entitlement.status = "subscriber";
 
-try {
-  var obj = JSON.parse(body);
-
-  // 强制订阅状态
-  obj.entitlement.status = "subscriber";
-
-  // 模拟订阅信息
-  obj.entitlement.current_subs = {
+obj.current_subs = {
     "product_id": "lightroom",
     "store": "adobe",
-    "purchase_date": "2023-10-10T16:32:10.254954Z", // 固定一个时间
+    "purchase_date": "2019-10-10T16:32:10.254954Z",
     "sao": {
-      "inpkg_LRMC": "1"  // Lightroom Mobile/CC 核心订阅包
+        "inpkg_CCES": "0",
+        "inpkg_CCLE": "1",
+        "inpkg_CCSN": "0",
+        "inpkg_CCSV": "0",
+        "inpkg_LCCC": "0",
+        "inpkg_LPES": "0",
+        "inpkg_LRBRL": "0",
+        "inpkg_LRMAC": "0",
+        "inpkg_LRMC": "0",
+        "inpkg_LRMP": "0",
+        "inpkg_LRTB": "0",
+        "inpkg_PHLT": "0",
+        "inpkg_PHLT2": "0",
+        "inpkg_PLES": "0",
+        "storage_quota": "100"
     }
-  };
+};
 
-  // 设定存储额度为 ~50GB（和真实订阅一致）
-  obj.entitlement.storage = {
+obj.entitlement.storage = {
     "used": 0,
-    "limit": 56371445760,        // ~52.5 GB
-    "display_limit": 53687091200, // 50 GB
-    "warn": 42949672960           // 40 GB
-  };
+    "limit": 1154487209165,
+    "display_limit": 1099511627776,
+    "warn": 992137445376
+};
 
-  // 保持头像正常
-  if (!obj.avatar) obj.avatar = {};
-  obj.avatar.placeholder = false;
+obj.avatar.placeholder = true;
 
-  $done({ body: JSON.stringify(obj) });
-
-} catch (e) {
-  console.log("❌ JSON 解析失败:", e.message);
-  $done({ body: rawBody });
-}
+body = JSON.stringify(obj);
+$done({body});
