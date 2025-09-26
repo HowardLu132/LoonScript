@@ -9,11 +9,12 @@ obj.entitlement.status = "subscriber";
 delete obj.entitlement.trial;
 delete obj.entitlement.deletion_date;
 delete obj.entitlement.expired_date;
+delete obj.entitlement.free_sharing_begin_date;
 
 obj.current_subs = {
     "product_id": "lightroom",
     "store": "adobe",
-    "purchase_date": "2019-10-10T16:32:10.254954Z",
+    "purchase_date": "2024-10-10T16:32:10.254954Z",
     "sao": {
         "inpkg_CCES": "0",
         "inpkg_CCLE": "1",
