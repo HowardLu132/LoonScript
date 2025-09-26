@@ -1,7 +1,14 @@
+// 最终修复版本 - 格式化展示
 body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
+
 let obj = JSON.parse(body);
 
 obj.entitlement.status = "subscriber";
+
+// 删除所有过期相关字段
+delete obj.entitlement.trial;
+delete obj.entitlement.deletion_date;
+delete obj.entitlement.expired_date;
 
 obj.current_subs = {
     "product_id": "lightroom",
@@ -36,4 +43,5 @@ obj.entitlement.storage = {
 obj.avatar.placeholder = true;
 
 body = JSON.stringify(obj);
+
 $done({body});
