@@ -1,9 +1,8 @@
-// 最终可靠版本 - 基于已订阅响应结构
 body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
 
 let obj = JSON.parse(body);
 
-// 1. 核心订阅状态修复
+
 obj.entitlement.status = "subscriber";
 
 // 2. 彻底删除所有过期和试用相关字段
@@ -14,41 +13,75 @@ delete obj.entitlement.invitationSharing;
  
 
 // 3. 按照已订阅响应的结构设置 current_subs（关键差异！）
-obj.entitlement.current_subs = {
-    "product_id": "lightroom",
-    "store": "adobe",
-    "purchase_date": "2024-10-10T16:32:10.254954Z",
-    "sao": {
-        "inpkg_LRMC": "1" 
-    }
-};
-
-// 4. 重置存储使用量为0，使用合理的存储限制（参考已订阅响应）
-obj.entitlement.storage = {
-    "used": 0,
-    "limit": 1154487209165,      // 保持大容量
-    "display_limit": 1099511627776,
-    "warn": 992137445376
-};
-
-// 5. 添加 policies 字段（参考已订阅响应）
-obj.policies = {
-    "freeStorageDisallowed": true,
-   
-};
-
-// 6. 更新配置项（参考已订阅响应）
-obj.config.hide_lrd_sync_switch = true; // 已订阅账户为true
-
-// 7. 更新 payload（参考已订阅响应）
-obj.payload = {
-    "lightroom_web": {
-        "similarity_data_ready": true
-    },
-    "universal": {
-        "disallow_face_detection": true
-    }
-};
+ obj.entitlement = {
+        "status": "subscriber",
+      
+        "current_subs": {
+            "product_id": "lightroom",
+            "store": "adobe",
+            "purchase_date": new Date().toISOString(), // 当前时间
+            "sao": {
+                "inpkg_LRMC": "1"
+            }
+        },
+        "storage": {
+            "limit": 0,
+            "display_limit":0,
+            "warn":0
+        }
+    };
+    
+  obj.config = {
+        "create_lrm_renditions_on_server": true,
+        "hide_lrm_custom_album_asset_order": true,
+        "lrd_sync_collections_by_default": true,
+        "notify_daily_in_app_unlimited_import_end": 15,
+        "notify_local_quota_reset": 5,
+        "notify_local_unlimited_import_end": 7,
+        "notify_local_without_app_launch": 14,
+        "upload_lrd_originals": false,
+        "first_asset_email": true,
+        "allow_video_uploads": true,
+        "hide_lrd_sync_switch": true, // 订阅者特有
+        "disable_lrd_auto_sync_collection": 0,
+        "upgrade_lrd_less_65": true,
+        "stacks_api": true,
+        "storage_schema_version": 2,
+        "storage_track": true,
+        "one_quota": true,
+        "ims_hoolihan_enabled": true,
+        "allow_asset_importance_calculation": true,
+        "purge_assets_after": 2592000,
+        "whitelist_filter_v1_payload": true,
+        "sync_down_default_page_size": 100,
+        "sync_down_max_page_size": 500,
+        "enable_best_frame_scoring": true,
+        "allow_best_frame_in_best_photos": true,
+        "migration_delay": 120,
+        "upgrade_lrd_less_than_version": "13.3",
+        "allow_direct_upload": true,
+        "mongo_cluster_2": true,
+        "server_side_masking": true,
+        "pause_320_migration": false,
+        "switch_to_ems": true,
+        "allow_direct_download_redirect": true,
+        "prediction_request_url_timeout": 900,
+        "fix_imagecore_ppl_dlq": true,
+        "allow_heif_worker_decoding": true,
+        "enable_proxy_with_jxl": true,
+        "dynamic_renditions": true,
+        "enforce_enterprise_sharing": true,
+        "enable_invalid_rendition_deletion": true,
+        "orbit_erase_end": "43200",
+        "orbit_erase_limit": "500",
+        "orbit_lensblur_end": "43200",
+        "orbit_lensblur_limit": "500",
+        "orbit_masking_end": "43200",
+        "orbit_masking_limit": "500",
+        "orbit_blemish_end": "43200",
+        "orbit_blemish_limit": "500",
+        "search_index": true,
+        "allow_heif": true
 
 // 8. 确保头像配置正确
 obj.avatar = {
