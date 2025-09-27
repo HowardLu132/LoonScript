@@ -1,7 +1,6 @@
 body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
 let obj = JSON.parse(body);
 
-// 工具函数：生成今天的日期 + 固定时间
 function getTodayPurchaseDate() {
   const now = new Date();
   const year = now.getFullYear();
@@ -10,7 +9,6 @@ function getTodayPurchaseDate() {
   return `${year}-${month}-${day}T17:20:34.556306Z`;
 }
 
-// 重写 entitlement
 obj.entitlement = {
   "status": "subscriber",
   "current_subs": {
@@ -28,7 +26,6 @@ obj.entitlement = {
   }
 };
 
-// 保留你之前的 config
 obj.config = {
   "create_lrm_renditions_on_server": true,
   "hide_lrm_custom_album_asset_order": true,
@@ -82,10 +79,8 @@ obj.config = {
   "allow_heif": true
 };
 
-// 确保头像配置
 obj.avatar = { "placeholder": true };
 
-// 删除免费共享开始日期
 delete obj.config.free_sharing_begin_date;
 
 body = JSON.stringify(obj);
