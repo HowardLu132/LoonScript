@@ -6,11 +6,11 @@ function getTodayPurchaseDate() {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}T17:20:34.556306Z`;
+  return `${year}-${month}-${day}T08:20:34.556306Z`;
 }
 
 obj.entitlement = {
-  "status": "subscriber",
+  "status": "subscriber","trial",
   "current_subs": {
     "product_id": "lightroom",
     "store": "adobe",
