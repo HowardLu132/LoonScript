@@ -10,7 +10,7 @@ function getTodayPurchaseDate() {
 }
 
 obj.entitlement = {
-  "status": "subscriber","trial",
+  "status": ["subscriber", "trial"],
   "current_subs": {
     "product_id": "lightroom",
     "store": "adobe",
@@ -37,7 +37,7 @@ obj.config = {
   "upload_lrd_originals": false,
   "first_asset_email": true,
   "allow_video_uploads": true,
-  "hide_lrd_sync_switch": true, // 订阅者特有
+  "hide_lrd_sync_switch": true, 
   "disable_lrd_auto_sync_collection": 0,
   "upgrade_lrd_less_65": true,
   "stacks_api": true,
