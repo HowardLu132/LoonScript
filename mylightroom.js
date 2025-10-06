@@ -1,10 +1,4 @@
-let prefix = "";
-if (/^while\s*\(\d+\)\s*{}\s*/.test($response.body)) {
-  prefix = $response.body.match(/^while\s*\(\d+\)\s*{}\s*/)[0];
-}
-
 body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
-
 
 body = $response.body.replace(/"status"\s*:\s*"[^"]*"/g, `"status":"subscriber","trial"`);
 
@@ -90,9 +84,5 @@ obj.avatar = { "placeholder": true };
 
 
 body = JSON.stringify(obj);
-
-if (prefix) {
-  body = prefix + "\n" + body;
-}
 
 $done({ body });
