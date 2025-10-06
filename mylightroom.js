@@ -85,4 +85,7 @@ obj.avatar = { "placeholder": true };
 delete obj.config.free_sharing_begin_date;
 
 body = JSON.stringify(obj);
+
+body = 'while (1) {}\n' + body;
+
 $done({body});
