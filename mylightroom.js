@@ -1,4 +1,5 @@
-body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
+body = body.replace(/"status"\s*:\s*"[^"]*"/, `"status":"subscriber","trial"`);
+
 let obj = JSON.parse(body);
 
 function getTodayPurchaseDate() {
@@ -10,7 +11,6 @@ function getTodayPurchaseDate() {
 }
 
 obj.entitlement = {
-  "status": "subscriber", 
   "current_subs": {
     "product_id": "lightroom",
     "store": "adobe",
