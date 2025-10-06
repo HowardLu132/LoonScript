@@ -1,4 +1,4 @@
-body = body.replace(/"status"\s*:\s*"[^"]*"/, `"status":"subscriber","trial"`);
+body = $response.body.replace(/"status"\s*:\s*"[^"]*"/, `"status":"subscriber","trial"`);
 
 let obj = JSON.parse(body);
 
