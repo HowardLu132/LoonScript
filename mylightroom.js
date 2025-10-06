@@ -10,7 +10,7 @@ function getTodayPurchaseDate() {
 }
 
 obj.entitlement = {
-  "status": ["subscriber", "trial"],
+  "status": "subscriber", 
   "current_subs": {
     "product_id": "lightroom",
     "store": "adobe",
