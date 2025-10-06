@@ -1,7 +1,4 @@
 body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
-
-body = $response.body.replace(/"status"\s*:\s*"[^"]*"/g, `"status":"subscriber","trial"`);
-
 let obj = JSON.parse(body);
 
 
@@ -14,11 +11,14 @@ function getTodayPurchaseDate() {
 }
 
 obj.entitlement = {
+  "status": "subscriber"
   "current_subs": {
     "product_id": "lightroom",
     "store": "adobe",
-    "purchase_date": getTodayPurchaseDate(),
-    "sao": { "inpkg_LRMC": "1" }
+    "purchase_date": "2025-09-26T17:20:34.556306Z",
+    "sao": {
+      "inpkg_LRMC": "1"
+    }
   },
   "storage": {
     "limit": 0,
@@ -38,7 +38,7 @@ obj.config = {
   "upload_lrd_originals": false,
   "first_asset_email": true,
   "allow_video_uploads": true,
-  "hide_lrd_sync_switch": true,
+  "hide_lrd_sync_switch": true, 
   "disable_lrd_auto_sync_collection": 0,
   "upgrade_lrd_less_65": true,
   "stacks_api": true,
@@ -82,7 +82,7 @@ obj.config = {
 
 obj.avatar = { "placeholder": true };
 
+delete obj.config.free_sharing_begin_date;
 
 body = JSON.stringify(obj);
-
-$done({ body });
+$done({body});
