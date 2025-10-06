@@ -1,3 +1,5 @@
+body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
+
 body = $response.body.replace(/"status"\s*:\s*"[^"]*"/, `"status":"subscriber","trial"`);
 
 let obj = JSON.parse(body);
@@ -84,4 +86,6 @@ obj.avatar = { "placeholder": true };
 delete obj.config.free_sharing_begin_date;
 
 body = JSON.stringify(obj);
+body = 'while (1) {}\n' + body;
+
 $done({body});
