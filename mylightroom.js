@@ -1,8 +1,15 @@
+let prefix = "";
+if (/^while\s*\(\d+\)\s*{}\s*/.test($response.body)) {
+  prefix = $response.body.match(/^while\s*\(\d+\)\s*{}\s*/)[0];
+}
+
 body = $response.body.replace(/while\s*\(\d+\)\s*{}\s*/, "");
 
-body = $response.body.replace(/"status"\s*:\s*"[^"]*"/, `"status":"subscriber","trial"`);
+
+body = $response.body.replace(/"status"\s*:\s*"[^"]*"/g, `"status":"subscriber","trial"`);
 
 let obj = JSON.parse(body);
+
 
 function getTodayPurchaseDate() {
   const now = new Date();
@@ -17,9 +24,7 @@ obj.entitlement = {
     "product_id": "lightroom",
     "store": "adobe",
     "purchase_date": getTodayPurchaseDate(),
-    "sao": {
-      "inpkg_LRMC": "1"
-    }
+    "sao": { "inpkg_LRMC": "1" }
   },
   "storage": {
     "limit": 0,
@@ -39,7 +44,7 @@ obj.config = {
   "upload_lrd_originals": false,
   "first_asset_email": true,
   "allow_video_uploads": true,
-  "hide_lrd_sync_switch": true, 
+  "hide_lrd_sync_switch": true,
   "disable_lrd_auto_sync_collection": 0,
   "upgrade_lrd_less_65": true,
   "stacks_api": true,
@@ -83,9 +88,11 @@ obj.config = {
 
 obj.avatar = { "placeholder": true };
 
-delete obj.config.free_sharing_begin_date;
 
 body = JSON.stringify(obj);
-body = 'while (1) {}\n' + body;
 
-$done({body});
+if (prefix) {
+  body = prefix + "\n" + body;
+}
+
+$done({ body });
