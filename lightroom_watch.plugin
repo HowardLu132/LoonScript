@@ -8,4 +8,4 @@
 hostname = %APPEND% *.adobe.io, *.adobelogin.com, *.adobe.com
 
 [Script]
-http-response ^https?://([^/]*\.)?adobe\.io/ script-path=lr_watch.js, requires-body=true, max-size=0, timeout=20, tag=Lightroom_Watch, enabled=true
+http-response ^https?://([^/]*\.)?adobe\.io/ script-path=https://raw.githubusercontent.com/HowardLu132/LoonScript/refs/heads/main/lr_watch.js, requires-body=true, max-size=0, timeout=20, tag=Lightroom_Watch, enabled=true
