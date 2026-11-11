@@ -8,7 +8,7 @@
 
 [MITM]
 
-hostname=photos.adobe.io
+hostname=%APPEND% photos.adobe.io, *.adobe.io, *.adobelogin.com, *.adobe.com
 
 
 
