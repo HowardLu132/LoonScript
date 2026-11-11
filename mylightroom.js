@@ -23,7 +23,8 @@
     var STATUS = "subscriber";   // 备选: "active_subscription" / "trial" / "subscriber"
     var TRIAL_DAYS = 7;
     var SUB_YEARS = 10;
-    var SHOW_TRIAL = true;       // 想让 UI 显示"订阅有效"而不是倒计时，把这里改 false
+    var SHOW_TRIAL = false;      // false = 不碰 trial，保持原始 2017 年旧日期（真订阅者就是这样）
+                                 // true  = 滚动 7 天倒计时。只影响 UI，但可能被 LR 判成"试用中，功能受限"
     var DEBUG = true;
 
     // 完整 Adobe 包标志（来自 lightroom_old.js，全部打开）
