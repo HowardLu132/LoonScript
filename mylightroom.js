@@ -1,5 +1,5 @@
 (function () {
-    var STATUS = "subscriber";
+    var USED = 123456789012;
 
     var raw = $response && $response.body;
     if (typeof raw !== "string" || raw.length === 0) return $done({});
@@ -19,30 +19,17 @@
     }
 
     if (!obj.entitlement || typeof obj.entitlement !== "object") return $done({});
+    if (!obj.entitlement.storage || typeof obj.entitlement.storage !== "object") return $done({});
 
-    var ent = obj.entitlement;
-    var hits = [];
+    var before = obj.entitlement.storage.used;
+    if (before === USED) return $done({});
 
-    if (ent.status !== STATUS) {
-        hits.push("status " + ent.status + " -> " + STATUS);
-        ent.status = STATUS;
-    }
-
-    if (ent.expired_date !== undefined) {
-        delete ent.expired_date;
-        hits.push("expired_date 删除");
-    }
-
-    if (ent.deletion_date !== undefined) {
-        delete ent.deletion_date;
-        hits.push("deletion_date 删除");
-    }
-
-    if (hits.length === 0) return $done({});
+    obj.entitlement.storage.used = USED;
 
     var body = JSON.stringify(obj);
     if (prefix) body = prefix + body;
 
-    try { console.log("[LR6] " + hits.join(" | ")); } catch (e) {}
+    try { console.log("[LR10] storage.used " + before + " -> " + USED + " (其余字段未改动)"); } catch (e) {}
+
     $done({ body: body });
 })();
