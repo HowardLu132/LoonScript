@@ -1,0 +1,11 @@
+#!name=Lightroom 授权探针
+#!desc=不改写任何流量，只在 Adobe 域名出现 4xx / 授权相关响应时弹通知，用来定位到底哪个接口挡了高级功能。定位完可以关掉。
+#!author=YG
+#!system=ios
+#!loonVersion=3.1.0
+
+[MITM]
+hostname = %APPEND% *.adobe.io, *.adobelogin.com, *.adobe.com
+
+[Script]
+http-response ^https?://([^/]*\.)?adobe\.io/ script-path=lr_watch.js, requires-body=true, max-size=0, timeout=20, tag=Lightroom_Watch, enabled=true
